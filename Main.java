@@ -28,11 +28,16 @@ public class Main {
         // mede o tempo de inserção e busca da Tabela 2
         long insertTimeTable2 = table2.measureInsertionTime(names);
         long searchTimeTable2 = table2.measureSearchTime(names);
+        
+        System.out.println(" RELATÓRIO DEFINITIVO");
 
-
+        System.out.println("\nTabela 1 (HashTableFunction1):");
+        System.out.println("Número total de colisões: " + table1.getCollisions());
         System.out.println("Tabela 1 - Tempo total de inserção: " + (insertTimeTable1 / 1_000_000.0) + " ms");
         System.out.println("Tabela 1 - Tempo total de busca: " + (searchTimeTable1 / 1_000_000.0) + " ms");
 
+        System.out.println("\nTabela 2 (HashTableFunction2):");
+        System.out.println("Número total de colisões: " + table2.getCollisions());
         System.out.println("Tabela 2 - Tempo total de inserção: " + (insertTimeTable2 / 1_000_000.0) + " ms");
         System.out.println("Tabela 2 - Tempo total de busca: " + (searchTimeTable2 / 1_000_000.0) + " ms");
 
@@ -42,12 +47,14 @@ public class Main {
         System.out.println("Tabela 2 - Colisões: " + table2.getCollisions());
 
 
-        System.out.println("----------------------");
+        System.out.println("\nDistribuição de chaves na Tabela 1:");
 
         table1.printKeyDistribution();
 
-        System.out.println("----------------------");
+        System.out.println("\nDistribuição de chaves na Tabela 2:");
 
         table2.printKeyDistribution();
+
+        System.out.println("-----------THE END-----------");
     }
 }
