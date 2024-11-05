@@ -6,11 +6,11 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        String fileName = "names_5000.csv";
+        String fileName = "female_names.txt";
         HashTable table1 = new HashTableFunction1(1000);
         HashTable table2 = new HashTableFunction2(1000);
 
-        // lê arquivo CSV
+        // lê arquivo de texto
         List<String> names = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
             String line;
