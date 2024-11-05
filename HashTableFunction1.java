@@ -60,6 +60,8 @@ class HashTableFunction1 extends HashTable {
     @Override
     public void printKeyDistribution() {
         int filledSlots = 0;
+        int clusters = 0; // Contador de clusters (posições com mais de uma chave)
+
         System.out.println("Distribuição de chaves - Tabela 1:");
 
         for (int i = 0; i < size; i++) {
@@ -67,12 +69,17 @@ class HashTableFunction1 extends HashTable {
             if (bucket != null && !bucket.isEmpty()) {
                 filledSlots++;
                 System.out.println("Posição " + i + " contém " + bucket.size() + " chave(s): " + bucket);
+                if (bucket.size() > 1) {
+                    clusters++; // Incrementa clusters quando há mais de uma chave na posição
+                }
             } else {
                 System.out.println("Posição " + i + " está vazia.");
             }
         }
 
         System.out.println("Total de posições ocupadas: " + filledSlots);
+        System.out.println("Total de clusters (posições com múltiplas chaves): " + clusters);
         System.out.println("Total de posições vazias: " + (size - filledSlots));
     }
+
 }

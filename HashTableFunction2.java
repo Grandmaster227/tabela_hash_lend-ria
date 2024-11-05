@@ -1,13 +1,21 @@
+import java.util.LinkedList;
+import java.util.List;
+
 class HashTableFunction2 extends HashTable {
-    private String[] table;
+    private List<String>[] table;
     private int collisions;
 
+    @SuppressWarnings("unchecked")
     public HashTableFunction2(int size) {
         super(size);
         collisions = 0;
-        table = new String[size]; //  armazena uma chave por posição
+        table = new LinkedList[size];
+        for (int i = 0; i < size; i++) {
+            table[i] = new LinkedList<>();
+        }
     }
 
+    // Função hash diferente da `HashTableFunction1`
     @Override
     protected int hashFunction(String key) {
         int hash = 0;
@@ -20,21 +28,29 @@ class HashTableFunction2 extends HashTable {
     @Override
     public void insert(String key) {
         int index = hashFunction(key);
+        List<String> bucket = table[index];
 
-        // verifica se já existe uma chave na posição e conta como colisão
-        if (table[index] != null) {
+        // Verifica se a posição já possui elementos (conta como colisão se não está vazia)
+        if (!bucket.isEmpty()) {
             collisions++;
         }
 
-        // substitui a chave existente, se houver colisão
-        table[index] = key;
+        // Insere o novo elemento na lista encadeada no bucket correspondente
+        bucket.add(key);
     }
 
     @Override
     public String search(String key) {
         int index = hashFunction(key);
-        // retorna a chave se ela estiver na posição correspondente
-        return table[index] != null && table[index].equals(key) ? table[index] : null;
+        List<String> bucket = table[index];
+
+        // Busca pela chave dentro do bucket
+        for (String k : bucket) {
+            if (k.equals(key)) {
+                return k;
+            }
+        }
+        return null; // Retorna null se a chave não for encontrada
     }
 
     @Override
@@ -45,18 +61,27 @@ class HashTableFunction2 extends HashTable {
     @Override
     public void printKeyDistribution() {
         int filledSlots = 0;
+        int clusters = 0; // Contador de clusters (posições com mais de uma chave)
+
         System.out.println("Distribuição de chaves - Tabela 2:");
 
         for (int i = 0; i < size; i++) {
-            if (table[i] != null) {
+            List<String> bucket = table[i];
+            if (bucket != null && !bucket.isEmpty()) {
                 filledSlots++;
-                System.out.println("Posição " + i + " contém a chave: " + table[i]);
+                System.out.println("Posição " + i + " contém " + bucket.size() + " chave(s): " + bucket);
+                if (bucket.size() > 1) {
+                    clusters++; // Incrementa clusters quando há mais de uma chave na posição
+                }
             } else {
-                System.out.println("Posição " + i + " está vazia.");
+                System.out.println("Posição " + i + " está vazia."); // Imprime se a posição estiver vazia
             }
         }
 
         System.out.println("Total de posições ocupadas: " + filledSlots);
+        System.out.println("Total de clusters (posições com múltiplas chaves): " + clusters);
         System.out.println("Total de posições vazias: " + (size - filledSlots));
     }
+
+
 }
