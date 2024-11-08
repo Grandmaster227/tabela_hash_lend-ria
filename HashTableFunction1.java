@@ -29,12 +29,10 @@ class HashTableFunction1 extends HashTable {
         int index = hashFunction(key);
         List<String> bucket = table[index];
 
-        // verifica se a posição já possui elementos
         if (!bucket.isEmpty()) {
             collisions++;
         }
 
-        // insere o novo elemento no bucket (lista encadeada)
         bucket.add(key);
     }
 
@@ -43,13 +41,12 @@ class HashTableFunction1 extends HashTable {
         int index = hashFunction(key);
         List<String> bucket = table[index];
 
-        // busca pela chave dentro do bucket
         for (String k : bucket) {
             if (k.equals(key)) {
                 return k;
             }
         }
-        return null; // retorna null se a chave não for encontrada
+        return null;
     }
 
     @Override
@@ -60,7 +57,7 @@ class HashTableFunction1 extends HashTable {
     @Override
     public void printKeyDistribution() {
         int filledSlots = 0;
-        int clusters = 0; // Contador de clusters (posições com mais de uma chave)
+        int clusters = 0;
 
         System.out.println("Distribuição de chaves - Tabela 1:");
 
@@ -70,7 +67,7 @@ class HashTableFunction1 extends HashTable {
                 filledSlots++;
                 System.out.println("Posição " + i + " contém " + bucket.size() + " chave(s): " + bucket);
                 if (bucket.size() > 1) {
-                    clusters++; // Incrementa clusters quando há mais de uma chave na posição
+                    clusters++;
                 }
             } else {
                 System.out.println("Posição " + i + " está vazia.");

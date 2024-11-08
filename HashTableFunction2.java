@@ -15,7 +15,6 @@ class HashTableFunction2 extends HashTable {
         }
     }
 
-    // Função hash diferente da `HashTableFunction1`
     @Override
     protected int hashFunction(String key) {
         int hash = 0;
@@ -30,12 +29,11 @@ class HashTableFunction2 extends HashTable {
         int index = hashFunction(key);
         List<String> bucket = table[index];
 
-        // Verifica se a posição já possui elementos (conta como colisão se não está vazia)
         if (!bucket.isEmpty()) {
             collisions++;
         }
 
-        // Insere o novo elemento na lista encadeada no bucket correspondente
+
         bucket.add(key);
     }
 
@@ -44,13 +42,13 @@ class HashTableFunction2 extends HashTable {
         int index = hashFunction(key);
         List<String> bucket = table[index];
 
-        // Busca pela chave dentro do bucket
+
         for (String k : bucket) {
             if (k.equals(key)) {
                 return k;
             }
         }
-        return null; // Retorna null se a chave não for encontrada
+        return null;
     }
 
     @Override
@@ -61,7 +59,7 @@ class HashTableFunction2 extends HashTable {
     @Override
     public void printKeyDistribution() {
         int filledSlots = 0;
-        int clusters = 0; // Contador de clusters (posições com mais de uma chave)
+        int clusters = 0;
 
         System.out.println("Distribuição de chaves - Tabela 2:");
 
@@ -71,10 +69,10 @@ class HashTableFunction2 extends HashTable {
                 filledSlots++;
                 System.out.println("Posição " + i + " contém " + bucket.size() + " chave(s): " + bucket);
                 if (bucket.size() > 1) {
-                    clusters++; // Incrementa clusters quando há mais de uma chave na posição
+                    clusters++;
                 }
             } else {
-                System.out.println("Posição " + i + " está vazia."); // Imprime se a posição estiver vazia
+                System.out.println("Posição " + i + " está vazia.");
             }
         }
 

@@ -10,7 +10,6 @@ public class Main {
         HashTable table1 = new HashTableFunction1(1000);
         HashTable table2 = new HashTableFunction2(1000);
 
-        // lê arquivo de texto
         List<String> names = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
             String line;
@@ -21,11 +20,9 @@ public class Main {
             e.printStackTrace();
         }
 
-        // mede o tempo de inserção e busca da Tabela 1
         long insertTimeTable1 = table1.measureInsertionTime(names);
         long searchTimeTable1 = table1.measureSearchTime(names);
-
-        // mede o tempo de inserção e busca da Tabela 2
+        
         long insertTimeTable2 = table2.measureInsertionTime(names);
         long searchTimeTable2 = table2.measureSearchTime(names);
         
